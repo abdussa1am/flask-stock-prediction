@@ -30,7 +30,7 @@ class ContactForm(FlaskForm):
     submit = SubmitField('Submit')
 @app.route('/') 
 def index():
-    return render_template("err.html")
+    return render_template("hello.html")
 @app.route('/hello')
 def hello():
     res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
