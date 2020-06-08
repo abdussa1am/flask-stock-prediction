@@ -36,7 +36,7 @@ def hello():
     res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     data = res.json()
     return render_template('hello.html', data= data)
-@app.route('/api/<int:name>') 
+@app.route('https://psx-flask-stock.herokuapp.com/api/<int:name>') 
 def api(name):
     res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     data = res.json()
@@ -49,17 +49,17 @@ def user():
     res = requests.get('https://fcsapi.com/api-v2/stock/list?country=pakistan&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU&fbclid=IwAR1_XLTMSH3mKhd8uaTpXKtVQRsPS-EwNtWdlu4oM0f8fE2G9i5K2mPKcTw')
     data = res.json()
     return render_template('user.html', data= data)
-"""@app.route('/signin', methods=('GET', 'POST'))
+@app.route('/signin', """methods=('GET', 'POST')""")
 def signin():
     form = ContactForm()
-    if request.method =='POST' and form.validate_on_submit(): 
+    """if request.method =='POST' and form.validate_on_submit(): 
         users = Contact(name = form.name.data)
         db.session.add(users)
         db.session.commit()
         peter = Contact.query.filter_by(name='sad').first()
         names = peter.name
         flash(names)
-        return redirect(url_for('err'))
-    return render_template('signin.html', form=form)"""
+        return redirect(url_for('err'))"""
+    return render_template('signin.html', form=form)
 if __name__ == '__main__':
     app.run(debug=True, port=33507)
