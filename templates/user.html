@@ -18,7 +18,7 @@
         <tr>
             <!--<td><a href="http://127.0.0.1:5000/api/{{ comm['stock_id'] }}">{{comm['stock_id'] }}</a></td>!-->
             <td>{{comm['short_name'] }}</td>
-            <td><a href="https://psx-flask-stock.herokuapp.com/api/{{ comm['stock_id'] }}">{{ comm['name'] }}</a></td>
+            <td><a href="api/{{ comm['stock_id'] }}">{{ comm['name'] }}</a></td>
             <td>{{comm['country'] }}</td>
         </tr>
         {% endfor %}

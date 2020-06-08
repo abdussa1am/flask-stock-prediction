@@ -10,8 +10,8 @@ from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
-"""app.config['SECRET_KEY'] = 'any secret string'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
+app.config['SECRET_KEY'] = 'any secret string'
+"""app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) """
 
@@ -36,7 +36,7 @@ def hello():
     res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     data = res.json()
     return render_template('hello.html', data= data)
-@app.route('https://psx-flask-stock.herokuapp.com/api/<int:name>') 
+@app.route('/api/<int:name>') 
 def api(name):
     res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     data = res.json()
@@ -49,7 +49,7 @@ def user():
     res = requests.get('https://fcsapi.com/api-v2/stock/list?country=pakistan&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU&fbclid=IwAR1_XLTMSH3mKhd8uaTpXKtVQRsPS-EwNtWdlu4oM0f8fE2G9i5K2mPKcTw')
     data = res.json()
     return render_template('user.html', data= data)
-@app.route('/signin', """methods=('GET', 'POST')""")
+@app.route('/signin', methods=('GET', 'POST'))
 def signin():
     form = ContactForm()
     """if request.method =='POST' and form.validate_on_submit(): 
