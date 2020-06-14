@@ -4,33 +4,23 @@ from flask_bootstrap import Bootstrap
 import requests
 from flask_sqlalchemy import SQLAlchemy
 from forms import ContactForm , sign
+import os
 import psycopg2
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
+#app.config.from_object(os.environ['APP_SETTINGS'])
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-import os
-#app.config.from_object(os.environ['APP_SETTING'])
-#print(os.environ['APP_SETTING'])
+app.config.from_object('config.DevelopmentConfig')
 app.config['SECRET_KEY'] = 'any secret string'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-
-class Contact(db.Model):
-        __tablename__ = 'mynu'
-        id = db.Column(db.Integer, primary_key = True)
-        email = db.Column(db.String(60), unique=True)
-        name = db.Column(db.String(80), nullable=False)
-class Users(db.Model):
-        __tablename__ = 'users'
-        id = db.Column(db.Integer, primary_key = True)
-        name = db.Column(db.String(80), nullable=False)
 class Signin(db.Model):
         __tablename__ = 'signin'
         id = db.Column(db.Integer, primary_key = True)
         email = db.Column(db.String(60), unique=True)
         name = db.Column(db.String(80), nullable=False)
 db.create_all()
-print(app.config)
 
 @app.route('/') 
 def index():
@@ -53,7 +43,8 @@ def signin():
     form = sign()
     if request.method =='POST' and form.validate_on_submit():
         nem = Signin.query.filter_by(email= form.email.data).first()
-        return redirect(url_for(''))
+        if nem:
+            return redirect(url_for('user'))
     return render_template('signin.html' , form= form)
 @app.route('/user')
 def user():
