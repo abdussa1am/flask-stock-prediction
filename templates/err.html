@@ -1,21 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">       
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <table class="table table-hover">
         <thead>
           <tr>
             <th>high</th>
             <th>low</th>
             <th>price</th>
+            <th>change</th>
+            <th>change percent</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable"> 
           <tr>
             <td>{{data['response'][0]['high']}}</td>
             <td>{{data['response'][0]['low']}}</td>
             <td>{{data['response'][0]['price']}}</td>
+            <td>{{data['response'][0]['chg']}}</td>
+            <td>{{data['response'][0]['chg_percent']}}</td>
           </tr>
         </tbody>
       </table>
 </div>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 {%- endblock %}

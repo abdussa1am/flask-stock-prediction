@@ -11,7 +11,7 @@ bootstrap = Bootstrap(app)
 #app.config.from_object(os.environ['APP_SETTINGS'])
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-app.config.from_object('config.ProductionConfig')
+app.config.from_object('config.DevelopmentConfig')
 app.config['SECRET_KEY'] = 'any secret string'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
@@ -24,7 +24,7 @@ db.create_all()
 
 @app.route('/') 
 def index():
-    return 'sdf'
+    return "pad"
 @app.route('/hello')
 def hello():
     res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
@@ -34,7 +34,9 @@ def hello():
 def api(name):
     res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     data = res.json()
-    return render_template('err.html' , data= data)
+    technicals  = requests.get('https://fcsapi.com/api-v2/stock/technicals?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
+    tech = technicals.json()
+    return render_template('err.html' , data= data, tech=tech)
 @app.route('/err')
 def err():
     return render_template('err.html') 
