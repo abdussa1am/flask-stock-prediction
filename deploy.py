@@ -30,7 +30,7 @@ def index():
 def chart():
     res = requests.get('https://fcsapi.com/api-v2/stock/history?id=1&period=1d&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     data = res.json()
-    ope = [i['o'] for i in data['response']] 
+    ope = [i+2['o'] for i in data['response']] 
     dte = [i['tm'] for i in data['response']]
     return render_template('chart.html', oneday=ope ,dte=dte)
 @app.route('/hello')
@@ -42,7 +42,7 @@ def hello():
 def api(name):
     res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     data = res.json()
-    res = requests.get('https://fcsapi.com/api-v2/stock/history?id='+str(name)+'&period=1d&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
+    res = requests.get('https://fcsapi.com/api-v2/stock/history?id='+str(name)+'&period=1d&from=2020-4-01&to=2020-06-20&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     grph = res.json()
     ope = [i['o'] for i in grph['response']] 
     dte = [i['tm'] for i in grph['response']]
