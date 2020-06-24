@@ -2,10 +2,107 @@
 {% block head %}
   {{ super() }}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"> </script>
+  <script src = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js'></script>
 {% endblock %}
 {% block content %}
-<div class="container">       
-    <table class="table table-hover">
+
+<div class="container">
+  <p>{{comp['info']['server_time']}}</p>
+  <div class="panel panel-info">
+    <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: larger; ">{{ comp['response'][0]['full_name'] }} 
+    <br><p style="text-align: center;">({{comp['response'][0]['sector']}})</p>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class=" col-xs-4 col-lg-4" >
+          <h4>Price:</h4>
+          <hr>
+          <h4>{{data['response'][0]['price']}}</h4>
+        </div>
+        <div class=" col-xs-3 col-lg-4" >
+          <h4>High:</h4>
+          <hr>
+          <h4>{{data['response'][0]['high']}}</h4>
+        </div>
+        <div class=" col-xs-3 col-lg-4">
+          <h4>Industry type:</h4>
+          <hr>
+          <h4>{{comp['response'][0]['industry']}}</h4>
+        </div>
+       </div>
+
+
+    <div class="panel-footer" style="text-align: center;">Address:  {{comp['response'][0]['info']['locality']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Website: <a href="{{comp['response'][0]['info']['website']}}">{{comp['response'][0]['info']['website']}}</a></div>
+  </div>
+
+
+  <div class="panel panel-info">
+    <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: larger; ">PERFORMANCE 
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class=" col-xs-3 col-lg-3" >
+          <h4>Daily:</h4>
+          <hr>
+          <h4>{{per['response'][0]['daily']}} &nbsp; %</h4>
+        </div>
+        <div class=" col-xs-3 col-lg-3" >
+          <h4>Week:</h4>
+          <hr>
+          <h4>{{per['response'][0]['week']}} &nbsp; %</h4>
+        </div>
+        <div class=" col-xs-3 col-lg-3" >
+          <h4>Month:</h4>
+          <hr>
+          <h4>{{per['response'][0]['month']}} &nbsp; %</h4>
+        </div>
+        <div class=" col-xs-3 col-lg-3">
+          <h4>Year:</h4>
+          <hr>
+          <h4>{{per['response'][0]['year']}} &nbsp;%</h4>
+        </div>
+       </div>
+
+
+    <div class="panel-footer" style="text-align: center;">Performane measure in percentage</div>
+  </div>
+
+
+  <div class="panel panel-info">
+    <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: larger; ">Technical Indicator 
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class=" col-xs-3 col-lg-3" >
+          <h4>Hourly:</h4>
+          <hr>
+          <h3>{{fund['response'][0]['hourly']}}</h3>
+        </div>
+        <div class=" col-xs-3 col-lg-3" >
+          <h4>Daily:</h4>
+          <hr>
+          <h3>{{fund['response'][0]['daily']}}</h3>
+        </div>
+        <div class=" col-xs-3 col-lg-3" >
+          <h4>Weekly:</h4>
+          <hr>
+          <h3>{{fund['response'][0]['weekly']}} </h3>
+        </div>
+        <div class=" col-xs-3 col-lg-3">
+          <h4>Monthly:</h4>
+          <hr>
+          <h3>{{fund['response'][0]['monthly']}}</h3>
+        </div>
+       </div>
+
+
+    <div class="panel-footer" style="text-align: center;">Performane measure in percentage</div>
+  </div>
+
+
+  <!--<div class="row">
+    <div class="col-lg-4"> 
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>high</th>
@@ -16,20 +113,86 @@
           </tr>
         </thead>
         <tbody id="myTable"> 
-          <tr>
-            <td>{{data['response'][0]['high']}}</td>
-            <td>{{data['response'][0]['low']}}</td>
-            <td>{{data['response'][0]['price']}}</td>
-            <td>{{data['response'][0]['chg']}}</td>
-            <td>{{data['response'][0]['chg_percent']}}</td>
-          </tr>
+        <tr>
+          <td>{{data['response'][0]['high']}}</td>
+          <td>{{data['response'][0]['low']}}</td>
+          <td>{{data['response'][0]['price']}}</td>
+          <td>{{data['response'][0]['chg']}}</td>
+          <td>{{data['response'][0]['chg_percent']}}</td>
+        </tr>
         </tbody>
-      </table>
-
-<canvas id="myChart"></canvas>
+     
+  </div>
 </div>
+
+<div class="row">
+  <div class="col-lg-12" class="col-sm-12"> 
+    <canvas id="myChart" height="300" width="500"></canvas>
+    <div>
+</div> 
+
+
+</div>
+<div class="row">
+  <div class="col-sm-12" class="col-lg-12">
+<div class="panel panel-info">
+  <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: large;">Company Profile</div>
+  <div class="panel-body">
+  <div class="row">
+     <div class="col-lg-3">
+         sector : fsd
+     </div>
+     <div class="col-lg-3">
+        industry: dsf
+     </div>
+     <div class="col-lg-3">
+        name : sdf
+     </div>
+  </div>
+
+     <hr>
+     <h4>Address</h4>
+    <div class="row">
+     <div class="col-lg-2">
+        company: adsl
+     </div>
+  </div>
+  </div>
+  <div class="panel-footer">Panel footer</div>
+</div>
+
+</div>
+
+</div>-->
+
+
+
+</div>
+{%- endblock %}
+<!--</table>
+<b></b><h5 style="align-items: center;">Performane</h5></b>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>daily</th>
+      <th>week</th>
+      <th>month</th>
+      <th>year</th>
+      <th>3 year</th>
+    </tr>
+  </thead>
+  <tbody id="myTable"> 
+    <tr>
+      <td>{{per['response'][0]['daily']}}</td>
+      <td>{{per['response'][0]['week']}}</td>
+      <td>{{per['response'][0]['month']}}</td>
+      <td>{{per['response'][0]['year']}}</td>
+      <td>{{per['response'][0]['year3']}}</td>
+    </tr>
+  </tbody>
+</table>-->
 <script>
- var ctx = document.getElementById('myChart');
+  /*var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -65,6 +228,5 @@
                 }]
             }
         }
-    });
+    });*/
 </script>
-{%- endblock %}
