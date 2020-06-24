@@ -12,11 +12,11 @@ from flask_mail import Mail, Message
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
-app.config.from_object(os.environ['APP_SETTINGS'])
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#app.config.from_object(os.environ['APP_SETTINGS'])
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-#app.config.from_object('config.DevelopmentConfig')
-app.config['SECRET_KEY'] = 'any secret string'
+app.config.from_object('config.ProductionConfig')
+#app.config['SECRET_KEY'] = 'any secret string'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 #app.config['MAIL_SERVER']='smtp.gmail.com'
