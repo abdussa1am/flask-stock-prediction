@@ -12,19 +12,19 @@ from flask_mail import Mail, Message
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
-#app.config.from_object(os.environ['APP_SETTINGS'])
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 #app.config.from_object('config.DevelopmentConfig')
 app.config['SECRET_KEY'] = 'any secret string'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'abdussalam11051998@gmail.com'
-app.config['MAIL_PASSWORD'] = 'karachiking11051998'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+#app.config['MAIL_SERVER']='smtp.gmail.com'
+#app.config['MAIL_PORT'] = 465
+#app.config['MAIL_USERNAME'] = 'abdussalam11051998@gmail.com'
+#app.config['MAIL_PASSWORD'] = 'karachiking11051998'
+#app.config['MAIL_USE_TLS'] = False
+#app.config['MAIL_USE_SSL'] = True
 mail= Mail(app)
 class Signin(db.Model):
         __tablename__ = 'signin'
