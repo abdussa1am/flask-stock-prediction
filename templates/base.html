@@ -26,7 +26,11 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        {% if current_user.is_anonymous %}
         <li><a href="/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% else %}
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+        {% endif %}
       </ul>
     </div>
   </div>
