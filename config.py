@@ -7,12 +7,12 @@ class Config(object):
     SECRET_KEY = 'this-really-needs-to-be-changed'
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     SQLALCHEMY_TRACK_MODIFICATIONS = False  
-    app.config['MAIL_SERVER']='smtp.gmail.com'
-    app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USERNAME'] = OS.environ['MAIL_USERNAME']
-    app.config['MAIL_PASSWORD'] = os.environ['MAIL_PASSWORD']
-    app.config['MAIL_USE_TLS'] = False
-    app.config['MAIL_USE_SSL'] = True
+    #app.config['MAIL_SERVER']='smtp.gmail.com'
+    #app.config['MAIL_PORT'] = 465
+    #app.config['MAIL_USERNAME'] = 'abdussalam11051998@gmail.com'
+    #app.config['MAIL_PASSWORD'] = 'karachiking11051998'
+    #app.config['MAIL_USE_TLS'] = False
+    #app.config['MAIL_USE_SSL'] = True
 
 class ProductionConfig(Config):
     DEBUG = False
