@@ -44,7 +44,6 @@ db.create_all()
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html')
     #msg = Message( 
      #           'Hello', 
       #           sender ='abdussalam11051998@gmail.com', 
@@ -52,7 +51,7 @@ def profile():
         #        )  
     #msg.body = 'Thanks for registratoin'
     #mail.send(msg) 
-    
+    return render_template('profile.html')
 @app.route("/chart" , methods=('GET', 'POST'))
 def chart():
     res = requests.get('https://fcsapi.com/api-v2/stock/history?id=1&period=1d&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
