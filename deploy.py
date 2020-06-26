@@ -7,29 +7,29 @@ from forms import ContactForm , sign
 import os
 import psycopg2
 import json
-#from flask_mail import Mail, Message
-#from flask_login import LoginManager,  UserMixin ,logout_user, current_user, login_user
+from flask_mail import Mail, Message
+from flask_login import LoginManager,  UserMixin ,logout_user, current_user, login_user
 
-#from flask_login import login_required
+from flask_login import login_required
 
 app = Flask(__name__)
 login_manager = LoginManager(app)
 login_manager.login_view = 'signin'
 bootstrap = Bootstrap(app)
-#app.config.from_object(os.environ['APP_SETTINGS'])
+#app.config.from_object(os.environ['APP_SETTING'])
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-app.config.from_object('config.ProductionConfig')
+#app.config.from_object('config.DevelopmentConfig')
 app.config['SECRET_KEY'] = 'any secret string'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-#app.config['MAIL_SERVER']='smtp.gmail.com'
-#app.config['MAIL_PORT'] = 465
-#app.config['MAIL_USERNAME'] = 'abdussalam11051998@gmail.com'
-#app.config['MAIL_PASSWORD'] = 'karachiking11051998'
-#app.config['MAIL_USE_TLS'] = False
-#app.config['MAIL_USE_SSL'] = True
-#mail= Mail(app)
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'abdussalam11051998@gmail.com'
+app.config['MAIL_PASSWORD'] = 'karachiking11051998'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail= Mail(app)
 class Signin( UserMixin,db.Model):
         __tablename__ = 'signin'
         id = db.Column(db.Integer, primary_key = True)
@@ -44,13 +44,13 @@ db.create_all()
 @app.route('/profile')
 @login_required
 def profile():
-    #msg = Message( 
-     #           'Hello', 
-      #           sender ='abdussalam11051998@gmail.com', 
-       #          recipients = ['abdussalam11051998@gmail.com'] 
-        #        )  
-    #msg.body = 'Thanks for registratoin'
-    #mail.send(msg) 
+    msg = Message( 
+                'Hello', 
+                 sender ='abdussalam11051998@gmail.com', 
+                 recipients = ['abdussalam11051998@gmail.com'] 
+               )  
+    msg.body = 'Thanks for registratoin'
+    mail.send(msg) 
     return render_template('profile.html')
 @app.route("/chart" , methods=('GET', 'POST'))
 def chart():
@@ -114,12 +114,10 @@ def user():
 def signup():
     form = ContactForm()
     if request.method =='POST' and form.validate_on_submit():
-        existing_user = Signin.query.filter_by(email = form.email.data)
-        if existing_user is None:
-            users = Signin(name = form.name.data ,email = form.email.data)
-            db.session.add(users)
-            db.session.commit()
-            login_user(users)
+        using = Signin(name = form.name.data ,email = form.email.data)
+        db.session.add(using)
+        db.session.commit()
+        #login_user(users)
         return redirect(url_for('signin'))
     return render_template('signup.html', form=form)
 @app.route('/logout')
