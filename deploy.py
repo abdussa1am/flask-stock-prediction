@@ -7,10 +7,10 @@ from forms import ContactForm , sign
 import os
 import psycopg2
 import json
-from flask_mail import Mail, Message
-from flask_login import LoginManager,  UserMixin ,logout_user, current_user, login_user
+#from flask_mail import Mail, Message
+#from flask_login import LoginManager,  UserMixin ,logout_user, current_user, login_user
 
-from flask_login import login_required
+#from flask_login import login_required
 
 app = Flask(__name__)
 login_manager = LoginManager(app)
@@ -19,17 +19,17 @@ bootstrap = Bootstrap(app)
 #app.config.from_object(os.environ['APP_SETTINGS'])
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-#app.config.from_object('config.ProductionConfig')
+app.config.from_object('config.ProductionConfig')
 app.config['SECRET_KEY'] = 'any secret string'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'abdussalam11051998@gmail.com'
-app.config['MAIL_PASSWORD'] = 'karachiking11051998'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-mail= Mail(app)
+#app.config['MAIL_SERVER']='smtp.gmail.com'
+#app.config['MAIL_PORT'] = 465
+#app.config['MAIL_USERNAME'] = 'abdussalam11051998@gmail.com'
+#app.config['MAIL_PASSWORD'] = 'karachiking11051998'
+#app.config['MAIL_USE_TLS'] = False
+#app.config['MAIL_USE_SSL'] = True
+#mail= Mail(app)
 class Signin( UserMixin,db.Model):
         __tablename__ = 'signin'
         id = db.Column(db.Integer, primary_key = True)
