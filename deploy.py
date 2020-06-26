@@ -19,9 +19,9 @@ bootstrap = Bootstrap(app)
 #app.config.from_object(os.environ['APP_SETTING'])
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-app.config.from_object('config.ProductionConfig')
+#app.config.from_object('config.ProductionConfig')
 app.config['SECRET_KEY'] = 'any secret string'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -46,10 +46,10 @@ db.create_all()
 def profile():
     msg = Message( 
                 'Hello', 
-                 sender ='abdussalam11051998@gmail.com', 
+                 sender ='engr.abdussalam98@gmail.com', 
                  recipients = ['abdussalam11051998@gmail.com'] 
                )  
-    msg.body = 'Thanks for registratoin'
+    msg.body = 'Thanks for registratoin !!'
     mail.send(msg) 
     return render_template('profile.html')
 @app.route("/chart" , methods=('GET', 'POST'))
