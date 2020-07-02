@@ -1,18 +1,17 @@
 from flask import Flask 
 from flask_wtf import FlaskForm
-from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, SubmitField, validators, ValidationError
-from wtforms.validators import DataRequired, Length 
+from wtforms.validators import DataRequired, Length , Email
 
 
 class ContactForm(FlaskForm):
     """Contact form."""
-    name = StringField('Name',[
+    name = StringField('Name:',[
         DataRequired()])
-    email = StringField('Email', [
+    email = StringField('Email:', [
         DataRequired()])
 
-    submit = SubmitField('Submit')
+    submit = SubmitField('Sign up')
 class sign(FlaskForm):
     """Contact form."""
     name = StringField('Name', [
@@ -20,4 +19,4 @@ class sign(FlaskForm):
     email = StringField('Email', [
         DataRequired()])
 
-    submit = SubmitField('Submit')
+    submit = SubmitField('Sign in')

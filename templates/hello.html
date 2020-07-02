@@ -38,7 +38,7 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-    <br><br><br>
+    <br>
     <h2 style="text-align: center;">Registered Companies</h2>
     <br>
 <div class="panel panel-info">
@@ -47,8 +47,7 @@
    <div class="panel-body">
 
       <input class="form-control input-lg" id="myInput"  onkeyup="myFunction()" type="text" placeholder="Search Company Name... ">
-
-      <table class="table">
+      <table class="table" id="myTable">
    <thead>
      <tr>
        <th>COMPANY</th>
@@ -61,27 +60,25 @@
    </thead>
    <tbody >
      {% for comm in lat['response'] %}
-     
-     <tr>
-         <td><a href="api/{{ comm['id'] }}">{{comm['symbol'] }}</a></td>
+     <tr id="tre">
+         <td><a href="profile/{{ comm['id'] }}">{{comm['symbol'] }}</a></td>
          <td>{{comm['price'] }}</td>
          <td>{{comm['high'] }}</td>
          <td>{{comm['low'] }}</td>
-         <td>{{comm['chg'] }}</td>
+         <td id="chg">{{comm['chg'] }}</td>
          <td>{{comm['chg_percent'] }}</td>
+         <td><button><a href="profile/{{comm['id']}}">Profile</a></button><button><a href="analysis/{{comm['id']}}">Analysis</a></button></td>
      </tr>
      
      {% endfor %}
    </tbody>
  </table>
 </div>
-<div class="panel-footer">Panel footer</div>
+<div class="panel-footer">pakistan stock exchange summary</div>
+</div>
 </div>
 
-</div>
 
-</div>
-</div>
 <script>
    function myFunction() {
      var input, filter, table, tr, td, i, txtValue;
@@ -102,5 +99,24 @@
        }       
      }
    }
+   
+   
+window.addEventListener("load", function(){
+  table = document.getElementById("myTable");
+     tr = table.getElementsByTagName("tr");
+     for (i = 0; i < tr.length; i++) {
+       td = tr[i].getElementsByTagName("td")[4];
+       console.log(td);
+       if (td) {
+         txtValue = td.textContent || td.innerText;
+         console.log(txtValue);
+         if ( txtValue >= 0 ) {
+           tr[i].setAttribute("class","success");
+         } else {
+           tr[i].setAttribute("class","danger");
+         }
+       }       
+     }
+});
  </script>
 {% endblock %}

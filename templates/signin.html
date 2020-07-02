@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/psx.css')}}">
+{% endblock %}
 {% block content %} 
 <div class="container">
-    
-    <h1>Please login</h1>
+    <div class="signup">
+    <h2 style="text-align: center;">Please Login</h2>
     {{ wtf.quick_form(form) }}
+    <p>if you don't have an account Please <a href="/signup">Create an account</a></p>
+    </div>
 </div>
 {% endblock %}
