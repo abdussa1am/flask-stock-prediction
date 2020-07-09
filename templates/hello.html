@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+   body{
+    background-image: linear-gradient(90deg, #ffffff, #cccecf, #9b9fa0, #6d7270, #464843);
+    margin-top: 70px;
+}
+
+
+</style>
 <div class="container">
-   <h2 style="text-align: center;">Pakistan Stock Exchange Limited</h2>  
+   <h4 style="text-align: center; color: white;">Pakistan Stock Exchange Limited</h4>  
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -14,16 +22,16 @@
         <div class="item active">
           <img src="{{ url_for('static', filename='images.jpg')}}" alt="Los Angeles" style="width:100%;">
           <div class="carousel-caption">
-            <h1>INVEST IN PAKISTAN</h1>
-            <h2>BUILD PAKISTAN</h2>
+            <h4>INVEST IN PAKISTAN</h4>
+            <h3>BUILD PAKISTAN</h3>
           </div>
         </div>
   
         <div class="item">
           <img src="{{ url_for('static', filename='0_dtiuqS8kNB66Mp5P.png')}}" alt="Chicago" style="width:100%;">
           <div class="carousel-caption">
-            <h1>INVEST IN PAKISTAN</h1>
-            <h2>BUILD PAKISTAN</h2>
+            <h4>INVEST IN PAKISTAN</h4>
+            <h3>BUILD PAKISTAN</h3>
           </div>
         </div>
       </div>
@@ -38,44 +46,39 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-    <br>
-    <h2 style="text-align: center;">Registered Companies</h2>
-    <br>
+    <h2 style="text-align: center; color: white;">Registered Companies</h2>
 <div class="panel panel-info">
    <!-- Default panel contents -->
    <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: large;">MARKET SUMMARY</div>
    <div class="panel-body">
-
       <input class="form-control input-lg" id="myInput"  onkeyup="myFunction()" type="text" placeholder="Search Company Name... ">
-      <table class="table" id="myTable">
+      <div class="table-responsive">
+      <table class="table" id="myTable" cellspacing="0" cellpadding="0">
    <thead>
      <tr>
-       <th>COMPANY</th>
-       <th>PRICE</th>
-       <th>HIGH</th>
-       <th>LOW</th>
-       <th>CHANGE</th>
-       <th>CHANGE IN %</th>
+       <th>Company</th>
+       <th>Price</th>
+       <th>High</th>
+       <th>Low</th>
+       <th>Change</th>
      </tr>
    </thead>
    <tbody >
      {% for comm in lat['response'] %}
      <tr id="tre">
-         <td><a href="profile/{{ comm['id'] }}">{{comm['symbol'] }}</a></td>
-         <td>{{comm['price'] }}</td>
-         <td>{{comm['high'] }}</td>
-         <td>{{comm['low'] }}</td>
-         <td id="chg">{{comm['chg'] }}</td>
-         <td>{{comm['chg_percent'] }}</td>
-         <td><button><a href="profile/{{comm['id']}}">Profile</a></button><button><a href="analysis/{{comm['id']}}">Analysis</a></button></td>
+        <td><a href="profile/{{ comm['id'] }}">{{comm['symbol'] }}</a></td>
+        <td>{{comm['price'] }}</td>
+        <td>{{comm['high'] }}</td>
+        <td>{{comm['low']}}</td>
+        <td><span class="asd"> {{comm['chg'] }}  &nbsp;</span><span>({{comm['chg_percent']}})</span></td>
      </tr>
-     
      {% endfor %}
    </tbody>
  </table>
 </div>
-<div class="panel-footer">pakistan stock exchange summary</div>
-</div>
+    </div>
+    <div class="panel-footer">pakistan stock exchange summary</div>
+  </div>
 </div>
 
 
@@ -101,21 +104,23 @@
    }
    
    
-window.addEventListener("load", function(){
-  table = document.getElementById("myTable");
-     tr = table.getElementsByTagName("tr");
-     for (i = 0; i < tr.length; i++) {
-       td = tr[i].getElementsByTagName("td")[4];
-       console.log(td);
-       if (td) {
-         txtValue = td.textContent || td.innerText;
-         console.log(txtValue);
-         if ( txtValue >= 0 ) {
-           tr[i].setAttribute("class","success");
-         } else {
-           tr[i].setAttribute("class","danger");
-         }
-       }       
+   window.addEventListener("load", function(){
+      asd = document.getElementsByClassName("asd");
+     for (i = 0; i < asd.length; i++) {
+       console.log(asd[i].nextSibling);
+       next = asd[i].nextSibling;
+       if(asd[i].innerText > 0){
+          asd[i].style.color = 'green';
+          next.setAttribute("class" , "glyphicon glyphicon-arrow-up");
+          next.style.color = 'green';
+         } else if(asd[i].innerText === 0.00) { 
+          asd[i].style.color = 'black';
+          next.style.color = 'black';
+         }else{
+          asd[i].style.color = 'red';
+          next.setAttribute("class" , "glyphicon glyphicon-arrow-down");
+          next.style.color = 'red';
+       }
      }
 });
  </script>

@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %}api{% endblock %}
 {% block content %} 
+<style>
+    body{
+      margin-top: 70px;
+}
+</style>
 <div class="container">
     <h2 style="text-align: center;">Pakistan Stock Exchange Limited</h2>  
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -34,26 +39,32 @@
     <br>
     <h2 style="text-align: center;">Registered Companies</h2>
     <br>
-  <input class="form-control input-lg" id="myInput" onkeyup="myFunction()" type="text" placeholder="Search Company Name... ">
-    <table class="table" id="myTable">
-      <thead>
-        <tr>
-          <th>stock id</th>
-          <th>Name</th>
-          <th>Country</th>
-        </tr>
-      </thead>
-      <tbody >
-        {% for comm in data['response'] %}
-        <tr>
-            <!--<td><a href="http://127.0.0.1:5000/api/{{ comm['stock_id'] }}">{{comm['stock_id'] }}</a></td>!-->
-            <td>{{comm['short_name'] }}</td>
-            <td><a href="analysis/{{ comm['stock_id'] }}">{{ comm['name'] }}</a></td>
-            <td>{{comm['country'] }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  <div class="panel panel-info">
+    <!-- Default panel contents -->
+    <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: large;">Stock Companies</div>
+    <div class="panel-body">
+       <input class="form-control input-lg" id="myInput"  onkeyup="myFunction()" type="text" placeholder="Search Company... ">
+       <div class="table-responsive">
+       <table class="table" id="myTable" cellspacing="0" cellpadding="0">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Analysis | Profile</th>
+      </tr>
+    </thead>
+    <tbody >
+      {% for comm in data['response'] %}
+      <tr id="tre">
+         <td> <a href="profile/{{ comm['stock_id'] }}">{{comm['name'] }}</a></td>
+         <td><a href="analysis/{{ comm['stock_id'] }}"><button>Analysis</button></a> &nbsp;<a href="profile/{{comm['stock_id']}}"><button>Profile</button></a> </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+ </div>
+     </div>
+     <div class="panel-footer">pakistan stock exchange summary</div>
+   </div>
   <script>
       function myFunction() {
         var input, filter, table, tr, td, i, txtValue;
@@ -62,7 +73,7 @@
         table = document.getElementById("myTable");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[1];
+          td = tr[i].getElementsByTagName("td")[0];
           if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {

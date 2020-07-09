@@ -2,15 +2,34 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% block head %}
   {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='/css/psx.css')}}">
+  <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/psx.css')}}">-->  
 {% endblock %}
 {% block content %} 
+<style>
+  body{
+    background-image: linear-gradient(90deg,#0f2027,#203a43, #2c5364);
+}
+.signup{
+    margin-top: 70px;
+    margin-right: 10%;
+    margin-left: 10%;
+    border: 2px solid black;
+    padding: 5%;
+    color: black;
+    background-color: white;
+}
+#submit{
+    background-color: blue;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+</style>  
 <div class="container">
     <div class="signup">
-    <h2 style="text-align: center;">Create an account</h2>
+     <h2 style="text-align: center;">Create an account</h2>
     {{ wtf.quick_form(form) }}
     <p>if you already have an account Please <a href="/signin">Signin</a></p>
-    </div>
+  </div>
 </div>
 
 

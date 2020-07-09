@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body{
+    background-image: linear-gradient(90deg, #ffffff, #cccecf, #9b9fa0, #6d7270, #464843);
+}
+  .container{
+    margin-top: 400px;
+  }
+  .navv{
+  margin-top: 60px;
+  }
+</style>
+<div class="container">
+  <div class="navv">
+    <ul class="nav nav-tabs" style="background-color:black; color:white;" >
+      <li role="presentation"><a href="../profile/{{fundamental['response'][0]['id']}}" style="background-color:black; color:white;">Profile</a></li>
+      <li role="presentation" class="active" style="background-color:black; color:white;"><a href="#">Fundamental</a></li>
+      <li role="presentation"><span class="glyphicon glyphicon-stats"><a href="../analysis/{{fundamental['response'][0]['id']}}" style="background-color:black; color:white;">Analysis</a></span></li>
+    </ul>
+</div>
+      <p style="color: white; align-content: center;">Server Time: {{fundamental['info']['Server_time']}}</p>
+  <div class="panel panel-info">
+    <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: larger; "><b>Fundamental Analysis</b> 
+        <br><p style="text-align: center;">({{fundamental['response'][0]['symbol']}})</p>
+        </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class=" col-xs-3">
+          <span> <b>market capital</b> </span>
+          <hr>
+          <span>{{fundamental['response'][0]['market_cap']}}</span>
+        </div>
+        <div class="col-xs-3">
+          <span><b>revenue</b</span>
+          <hr>
+          <span><b>{{fundamental['response'][0]['revenue']}}</span>
+        </div>
+        <div class="col-xs-3">
+          <span><b></b>Beta</b</span>
+          <hr>
+          <span>{{fundamental['response'][0]['beta']}} </span>
+        </div>
+        <div class="col-xs-3">
+          <span><b>3 month volume</b</span>
+          <hr>
+          <span>{{fundamental['response'][0]['avg_vol_3m']}}</span>
+        </div>
+       </div>
+  </div>
+{% endblock %}
+

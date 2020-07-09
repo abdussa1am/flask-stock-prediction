@@ -1,37 +1,56 @@
 {% extends "base.html" %}
-{% block head %}
-  {{ super() }}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"> </script>
-{% endblock %}
 {% block content %}
+<style>
+  body{
+    background-image: linear-gradient(90deg, #ffffff, #cccecf, #9b9fa0, #6d7270, #464843);
+}
+  .container{
+    margin-top: 40px;
+  }
+  .navv{
+  margin-top: 60px;
+  }
 
+</style>
 <div class="container">
-      <p>{{company['info']['_t']}}</p>
+  <div class="navv">
+    <ul class="nav nav-tabs" style="background-color:black; color:white;" >
+      <li role="presentation" class="active"  style="background-color:black; color:white;"><a href="#">Profile</a></li>
+      <li role="presentation"><a href="../fundamental/{{data['response'][0]['id']}}"  style="background-color:black; color:white;">Fundamental</a></li>
+      <li role="presentation"><a href="../analysis/{{data['response'][0]['id']}}"  style="background-color:black; color:white;">Analysis</a></li>
+    </ul>
+</div>
+      <p style="color: white; align-content: center;">{{company['info']['server_time']}}</p>
   <div class="panel panel-info">
-    <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: larger; ">{{ company['response'][0]['full_name'] }} 
+    <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: larger; "><b>{{ company['response'][0]['full_name'] }} </b> 
     <br><p style="text-align: center;">({{company['response'][0]['sector']}})</p>
     </div>
     <div class="panel-body">
       <div class="row">
-        <div class=" col-sm-4 col-lg-4" >
-          <h5>Price:</h5>
+        <div class=" col-xs-3">
+          <span> <b>Price</b> </span>
           <hr>
-          <h5>{{company['response'][0]['full_name']}}</h5>
+          <span>{{data['response'][0]['price']}}</span>
         </div>
-        <div class=" col-sm-4 col-lg-4" >
-          <h5>High:</h5>
+        <div class="col-xs-2">
+          <span> <b>High</b></span>
           <hr>
-          <h5>{{company['response'][0]['symbol']}}</h5>
+          <span>{{data['response'][0]['high']}}</span>
         </div>
-        <div class=" col-sm-4 col-lg-4">
-          <h5>Industry type:</h5>
+        <div class="col-xs-2">
+          <span> <b>Low</b></span>
           <hr>
-          <h5>{{company['response'][0]['industry']}}</h5>
+          <span>{{data['response'][0]['low']}} </span>
+        </div>
+        <div class="col-xs-5">
+          <span> <b>Change</b></span>
+          <hr>
+          <span id="perf">{{data['response'][0]['chg']}}</span><span >({{data['response'][0]['chg_percent']}})</span>
         </div>
        </div>
 
 
-    <div class="panel-footer" style="text-align: center; background-color: silver;" > Phone: {{company['response'][0]['info']['phone']}} &nbsp; Address:  {{company['response'][0]['info']['locality']}} &nbsp; Website: <a href="{{company['response'][0]['info']['website']}}">{{company['response'][0]['info']['website']}} </a> </div>
+    <div class="panel-footer" style="text-align: center; background-color: silver;" > <b>Phone:</b>  {{company['response'][0]['info']['phone']}} &nbsp; <br>  <b>Address: </b>   {{company['response'][0]['info']['locality']}} &nbsp; <br><b> Website:</b> <a href="{{company['response'][0]['info']['website']}}">{{company['response'][0]['info']['website']}} </a> </div>
   </div>
 <br>
 
@@ -40,79 +59,56 @@
     </div>
     <div class="panel-body">
       <div class="row">
-        <div class=" col-sm-3 col-lg-3" >
-          <h5>Daily:</h5>
+        <div class=" col-xs-3">
+          <span><b> Daily</b> </span>
           <hr>
-          <h5>{{per['response'][0]['daily']}} &nbsp; %</h5>
+          <span>{{per['response'][0]['daily']}}%</span>
         </div>
-        <div class=" col-sm-3 col-lg-3" >
-          <h5>Week:</h5>
+        <div class="col-xs-3">
+          <span><b>Weekly</b></span>
           <hr>
-          <h5>{{per['response'][0]['week']}} &nbsp; %</h5>
+          <span>{{per['response'][0]['week']}} %</span>
         </div>
-        <div class=" col-sm-3 col-lg-3" >
-          <h5>Month:</h5>
+        <div class="col-xs-3">
+          <span><b>Monthly</b></span>
           <hr>
-          <h5>{{per['response'][0]['month']}} &nbsp; %</h5>
+          <span>{{per['response'][0]['month']}} %</span>
         </div>
-        <div class=" col-sm-3 col-lg-3">
-          <h5>Year:</h5>
+        <div class="col-xs-3">
+          <span><b>Yearly</b></span>
           <hr>
-          <h5>{{per['response'][0]['year']}} &nbsp;%</h5>
+          <span >{{per['response'][0]['year']}} %</span>
         </div>
        </div>
-
-
     <div class="panel-footer" style="text-align: center; background-color: silver;">Performane measure in percentage</div>
   </div>
-
-
-
-  <br>
-  <div class="row">
-    <div class="col-lg-12" class="col-sm-12">
-  <div class="panel panel-info">
-    <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: larger; ">1 month data
-    </div>
-    <div class="panel-body">
-        <canvas id="myChart"></canvas>
-    <div>
-      </div> 
-    </div>
-    <div class="panel-footer" style="text-align: center; background-color: silver;">Data Visualization</div>
+<div class="row">
+  <div class="col-xs-8">
+   <a href="fundamental/{{data['response'][0]['id']}}"> <button style="background-color: black; color: white; align-content: center;"> Finance Details</button></a>
   </div>
+</div>
 
-
-
-  <script>
-    var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: {{dte|tojson}} ,     
-            datasets: [{
-                label: 'daily price of open ',
-                data: {{oneday|tojson}} ,
-                backgroundColor: [
-                'rgba(180, 180, 180, 0.2)',
-                ],
-                borderColor: [
-                'rgba(120, 120, 120, 1)',
-                ],
-                borderWidth: 3
-            }]
-        },
-        options: {
-          title: {
-            display: true,
-            text: '1 month price visualization'
-            },
-          hover: {
-            mode: 'index',
-            intersect: 'index'
-    },
-        }
-    });
-    </script>
+ </div>
+<script>
+  window.addEventListener("load", function(){
+      asd = document.getElementById("perf");
+      next = asd.nextSibling;
+       if(asd.innerText > 0){
+          asd.style.color = 'green';
+          next.setAttribute("class" , "glyphicon glyphicon-arrow-up");
+          next.style.color = 'green';
+          }
+          else if(asd.innerText == 0 ){
+            asd.style.color = 'black';
+            next.style.color = 'black';
+          }
+       else{
+        asd.style.color = 'red';
+        next.setAttribute("class" , "glyphicon glyphicon-arrow-down");
+        next.style.color = 'red';
+       }
+     
+});
+</script>
 
 {%- endblock %}

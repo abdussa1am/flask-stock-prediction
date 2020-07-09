@@ -7,7 +7,23 @@
   {% endblock %}
 {% endblock %}
 {% block content %} 
+<style>
+    body{
+   background-image: linear-gradient(90deg,#606c88, #3f4c6b);
+   margin-top: 40px;
+}
+.navv{
+  margin-top: 20px;
+  }
+</style>
 <div class="container">
+  <div class="navv">
+    <ul class="nav nav-tabs" style="background-color:black; color:white;" >
+      <li role="presentation" ><a href="../profile/{{fund['response'][0]['id']}}" style="background-color:black; color:white;">Profile</a></li>
+      <li role="presentation"><a href="../fundamental/{{fund['response'][0]['id']}}" style="background-color:black; color:white;">Fundamental</a></li>
+      <li role="presentation" class="active"  style="background-color:black; color:white;"><a href="#" ><span class="glyphicon glyphicon-stats">Analysis</a></span></li>
+    </ul>
+</div>
     <div class="panel panel-info">
         <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: larger; "> 1 month analysis</div>
         <div class="panel-body">
@@ -19,7 +35,7 @@
     <div class="panel panel-info">
         <div class="panel-heading" style="text-align: center; background-color: black; color: white; font-size: larger; "> 1 year analysis</div>
         <div class="panel-body">
-            <canvas id="myCharty" height="1000px" width="1200"></canvas>
+            <canvas id="myCharty" height="800px" width="1000px"></canvas>
         </div>
         <div class="panel-footer" style="text-align: center; background-color: gray;">1 year analysis of price of open</div>
     </div>
@@ -29,30 +45,30 @@
         </div>
         <div class="panel-body">
           <div class="row">
-            <div class=" col-sm-3 col-lg-3" >
-              <h5>Hourly:</h5>
+            <div class=" col-xs-3">
+              <span><b> Hourly</b></span>
               <hr>
-              <h5>{{fund['response'][0]['hourly']}}</h5>
+              <span>{{fund['response'][0]['hourly']}}</span>
             </div>
-            <div class=" col-sm-3 col-lg-3" >
-              <h5>Daily:</h5>
+            <div class="col-xs-3">
+              <span><b>Daily</b></span>
               <hr>
-              <h5>{{fund['response'][0]['daily']}}</h5>
+              <span>{{fund['response'][0]['daily']}}</span>
             </div>
-            <div class=" col-sm-3 col-lg-3" >
-              <h5>Weekly:</h5>
+            <div class="col-xs-3">
+              <span><b>Weekly</b></span>
               <hr>
-              <h5>{{fund['response'][0]['weekly']}} </h5>
+              <span>{{fund['response'][0]['weekly']}} </span>
             </div>
-            <div class=" col-sm-3 col-lg-3">
-              <h5>Monthly:</h5>
+            <div class="col-xs-3">
+              <span><b> Monthly</b></span>
               <hr>
-              <h5>{{fund['response'][0]['monthly']}}</h5>
+              <span>{{fund['response'][0]['monthly']}}</span>
             </div>
            </div>
     
     
-        <div class="panel-footer" style="text-align: center; ">analysis report</div>
+        <div class="panel-footer" style="text-align: center; background-color: grey; ">Take a Good Decision Buy or Sell !!!</div>
       </div>
 </div>
 

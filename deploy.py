@@ -17,9 +17,9 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'signin'
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
-#app.config.from_object('config.ProductionConfig')
+app.config.from_object('config.ProductionConfig')
 app.config['SECRET_KEY'] = 'any secret string'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2://postgres:karachiking@localhost:5432/ajd'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -60,6 +60,9 @@ def profile():
 @app.route("/chart")
 def chart():
     return render_template('chart.html')
+@app.route("/fundamental")
+def fundamental():
+    return render_template('fundamental.html')
 @app.route('/hello')
 def hello():
     res = requests.get('https://fcsapi.com/api-v2/stock/list?country=Pakistan&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
@@ -71,29 +74,32 @@ def hello():
     return render_template('hello.html' ,  data = data , lat = lat)
 @app.route('/profile/<int:name>') 
 def api(name):
-    res = requests.get('https://fcsapi.com/api-v2/stock/history?id='+str(name)+'&period=1d&from=2020-05-28&to=2020-06-27&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
-    grph = res.json()
-    ope = [i['o'] for i in grph['response']] 
-    dte = [j['tm'] for j in grph['response']]
     rest = requests.get('https://fcsapi.com/api-v2/stock/profile?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     compan = rest.json()
     res = requests.get('https://fcsapi.com/api-v2/stock/performance?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     per = res.json()
-    #res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
-    #data = res.json()
-    return render_template('err.html' , per=per, company=compan, dte=dte , oneday=ope)
-    #fun = requests.get('https://fcsapi.com/api-v2/stock/technicals?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
-    #funds = fun.json()
+    res = requests.get('https://fcsapi.com/api-v2/stock/latest?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
+    data = res.json()
+    return render_template('err.html' , per=per, company=compan ,data=data)
+@app.route('/fundamental/<int:name>') 
+def finance(name):
+    #res = requests.get('https://fcsapi.com/api-v2/stock/dividend?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
+    #divid = res.json()
+    res = requests.get('https://fcsapi.com/api-v2/stock/fundamental?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
+    fundamental = res.json()
+    #res = requests.get('https://fcsapi.com/api-v2/stock/earning?id='+str(name)+'&interim=4&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
+    #ear = res.json()
+    return render_template('fundamental.html' , fundamental = fundamental)#, ear = ear)
 @app.route('/analysis/<int:name>') 
 def analysis(name):
-    res = requests.get('https://fcsapi.com/api-v2/stock/history?id='+str(name)+'&period=1w&from=2019-06-30&to=2020-06-30&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
+    res = requests.get('https://fcsapi.com/api-v2/stock/history?id='+str(name)+'&period=month&from=2019-06-30&to=2020-06-30&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     grph = res.json()
     openy = [i['o'] for i in grph['response']] 
-    dtey = [j['tm'] for j in grph['response']]
+    dtey = [j['tm'].rstrip("00:00:00") for j in grph['response']]
     res = requests.get('https://fcsapi.com/api-v2/stock/history?id='+str(name)+'&period=1d&from=2020-05-30&to=2020-06-30&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     grph = res.json()
     ope = [i['o'] for i in grph['response']] 
-    dte = [j['tm'] for j in grph['response']]
+    dte = [j['tm'].rstrip("00:00:00") for j in grph['response']]
     fun = requests.get('https://fcsapi.com/api-v2/stock/technicals?id='+str(name)+'&access_key=YON9guMpjGdHapymnGbCOpBOvAtIMbsINqH866bXpgOvxHavTU')
     fund = fun.json()
     return render_template('profile.html' , dte=dte , oneday=ope , openy=openy , dtey=dtey , fund=fund)
@@ -112,12 +118,12 @@ def signin():
             return redirect(url_for('signin'))
         login_user(nem)
         msg = Message( 
-                'Hi {{nem.name}}', 
+                'Hi',
                  sender ='engr.abdussalam98@gmail.com', 
                  recipients = [nem.email] 
                )  
-        msg.body = '<h1>Thanks for visiting website  !!<h1>'
-        msg.html = "<h4>Thanks for visiting psx-flask-stock</h4><p>In Psx-flask-stock you can easily analyze pakistan stock market and predict prices </p><br><br><h4>Regards, <br>Abdus Salam</h4>"
+        msg.body = '<h1> Thanks for visiting website  !!<h1>'
+        msg.html = "<h4>{{nem.name}}Thanks for visiting psx-flask-stock</h4><p>In Psx-flask-stock you can easily analyze pakistan stock market and predict prices </p><br><br><h4>Regards, <br>Abdus Salam</h4>"
         mail.send(msg) 
         return redirect(url_for('hello'))
     return render_template('signin.html' , form= form)
